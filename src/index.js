@@ -13,10 +13,11 @@ import {Provider, connect, useSelector, useDispatch} from 'react-redux';
 import {createStore} from 'redux';
 import {searchRobots} from './reducers.js';
 import LineChart from './components/LineChart.js';
-import {setRates, setDates, setFirstCurrency, setSecondCurrency} from './actions.js';
+import {setRates, setDates, setFirstCurrency, setSecondCurrency, setCurrentRate} from './actions.js';
 import { wait } from '@testing-library/react';
 
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+import {Grid, Input, Button, GridColumn, GridRow} from 'semantic-ui-react';
 
 const store = createStore(searchRobots);
 // console.log(store);
@@ -55,12 +56,11 @@ const CurrencyConverter = (props) => {
   console.log(seven_days_ago);
   useEffect( () =>{
     console.log(props);
-    const a = document.getElementById("A1");
-    const b = document.getElementById("A2");
+    const fr = document.getElementById("from");
+    const to = document.getElementById("to");
     console.log("Listened a change from first currency!");
-    console.log(a)
-    a.value = firstCurrency;
-    b.value = secondCurrency;
+    fr.value = firstCurrency;
+    to.value = secondCurrency;
 
     
   }, [firstCurrency, secondCurrency]);
@@ -71,6 +71,11 @@ const CurrencyConverter = (props) => {
     })
     .then((response) =>{
       console.log(response.data);
+      const pair = `${firstCurrency}_${secondCurrency}`;
+      console.log(pair);
+      const r = response.data[pair];
+      console.log(r);
+      dispatch(setCurrentRate(r));
       // setRate(response.data[`${first}_${second}`]);
     })
     .catch((error) => {
@@ -102,22 +107,49 @@ const CurrencyConverter = (props) => {
   return (
   <div>
     <RateDisplayer></RateDisplayer>
-      <div className="f1 tc" style={{marginLeft: "33%"}}> 
-      {/* 1 USD = {uSDPHP} PHP */}
-      1 {first} = {rate}{second}
+      <div className="dtc dt--fixed" style={{marginLeft: "33%"}}> 
       </div>
       <br></br>
-      <input id = "A1" type="text" onChange = {(e) => dispatch(setFirstCurrency(e.target.value))} />
-      <input id = "A2" type="text" onChange = {(e) => dispatch(setSecondCurrency(e.target.value))} />
+      <Grid stackable columns = {3} centered>
+        <Grid.Row columns = {3}>
+          <Grid.Column>
+          <Input id = "amount" label='Amount' placeholder='1' size = "huge" 
+              onChange = {(e) => dispatch(setFirstCurrency(e.target.value))} />
+          </Grid.Column>
+          <Grid.Column>
+            <Input id = "from" label='From' placeholder='USD' size = "huge"
+                onChange = {(e) => dispatch(setFirstCurrency(e.target.value))} />
+          </Grid.Column>
+          <Grid.Column>
+            <Input id = "to" label= 'To' placeholder='CAD' size = "huge"
+                onChange = {(e) => dispatch(setSecondCurrency(e.target.value))}/>
+          </Grid.Column>
+        </Grid.Row>
+              {/* <div style={{padding: "1rem", fontSize: "1.5rem"}}>Or search by country name</div> */}
+        <CountrySearch></CountrySearch>
+        <Grid.Row>
+        <Grid.Column width = {3}>
+              <Button content='Convert' icon='right arrow' labelPosition='right' size="huge" 
+                      onClick = {() => {
+                                getRate(firstCurrency, secondCurrency);
+                      }}/>
+        </Grid.Column>
+        <Grid.Column width = {3}>
+            <Button content='Draw chart' icon='right arrow' labelPosition='right' size="huge" 
+                      onClick = {() => {
+                                getRate5Days(firstCurrency, secondCurrency);
+                      }}/>
+        </Grid.Column>
+        </Grid.Row>
+      </Grid>
 
-      <button onClick = {() => {
+      {/* <button onClick = {() => {
         getRate(firstCurrency, secondCurrency);
       }}>Convert</button>
 
       <button onClick = {() => {
         getRate5Days(firstCurrency, secondCurrency);
-      }}>Convert</button>
-      <CountrySearch></CountrySearch>
+      }}>Convert</button> */}
       <LineChart></LineChart>
   </div>
   );

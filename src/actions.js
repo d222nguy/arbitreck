@@ -15,10 +15,14 @@ export const setRates = (arr) => ({
     type: "SET_RATES",
     payload: arr
 });
+export const setCurrentRate = (num) => ({
+    type: "SET_CURRENT_RATE",
+    payload: num
+});
 export const setDates = (arr) => ({
     type: "SET_DATES",
     payload: arr
-})
+});
 export const getRate = () => ({
     type: "GET_RATE"
 })

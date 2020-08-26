@@ -5,6 +5,7 @@ import {Provider, connect, useDispatch, useSelector} from 'react-redux';
 import {createStore} from 'redux';
 import {searchRobots} from './reducers.js';
 import {setSearchField, setFirstCurrency, setSecondCurrency} from './actions.js';
+import {Input, Button, Grid} from 'semantic-ui-react';
 
 //in this component we would want to change the currency code
 
@@ -44,15 +45,32 @@ const CountrySearch = (props) => {
       };
 
     return (
-        <div className="f1 tc" style={{marginLeft: "33%"}}> 
-        <br></br>
-        <input type="text" value={firstCountryName} onChange = {(e) => setFirstCountryName(e.target.value)}/>
+        <Grid.Row stackable = "True" columns = {3}>
+        <Grid.Column></Grid.Column>
+        <Grid.Column>
+        <div className = "ui action input">
+        <Input id = "From" label='From' placeholder='America' size = "huge" className = "dtc tc"
+            onChange = {(e) => (setFirstCountryName(e.target.value))} />
         <button onClick = {() => {setCurrencyByCountryName(firstCountryName, true);}}>Search</button>
-
-        <input type="text" value={secondCountryName} onChange = {(e) => setSecondCountryName(e.target.value)}/>
-        <button onClick = {() => {setCurrencyByCountryName(secondCountryName, false);}}>Search</button>
-
         </div>
+        </Grid.Column>
+        <Grid.Column>
+        <div className = "ui action input">
+        <Input id = "To" label= 'To' placeholder='Canada' size = "huge" className = "dtc tc"
+            onChange = {(e) => (setSecondCountryName(e.target.value))}/>
+        <button onClick = {() => {setCurrencyByCountryName(secondCountryName, false);}}>Search</button>
+        </div>
+        </Grid.Column>
+        </Grid.Row>
+
+        // <div className="flex"> 
+        // <input type="text" value={firstCountryName} onChange = {(e) => setFirstCountryName(e.target.value)}/>
+        // <button onClick = {() => {setCurrencyByCountryName(firstCountryName, true);}}>Search</button>
+
+        // <input type="text" value={secondCountryName} onChange = {(e) => setSecondCountryName(e.target.value)}/>
+        // <button onClick = {() => {setCurrencyByCountryName(secondCountryName, false);}}>Search</button>
+
+        // </div>
     );
 }
 export default CountrySearch;//src/images/Arbitreck.png
