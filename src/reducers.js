@@ -4,7 +4,8 @@ const initialState = {
     secondCurrency: 'USD',
     searchField: '123',
     firstCurrency: 'CAD',
-    rate: '[unset]'
+    rate: '[unset]',
+    amount: 1
 }
 export const searchRobots = (state = initialState, action = {}) => {
     // console.log(action.type);
@@ -25,6 +26,8 @@ export const searchRobots = (state = initialState, action = {}) => {
             return Object.assign({}, state, {rate: action.payload});
         case "SET_DATES":
             return Object.assign({}, state, {dates: action.payload});
+        case "SET_AMOUNT":
+            return Object.assign({}, state, {amount: parseInt(action.payload)});
         default:
             return state;
     }

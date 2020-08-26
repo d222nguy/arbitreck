@@ -13,7 +13,7 @@ import {Provider, connect, useSelector, useDispatch} from 'react-redux';
 import {createStore} from 'redux';
 import {searchRobots} from './reducers.js';
 import LineChart from './components/LineChart.js';
-import {setRates, setDates, setFirstCurrency, setSecondCurrency, setCurrentRate} from './actions.js';
+import {setRates, setDates, setFirstCurrency, setSecondCurrency, setCurrentRate, setAmount} from './actions.js';
 import { wait } from '@testing-library/react';
 
 import 'semantic-ui-css/semantic.min.css';
@@ -40,6 +40,7 @@ const CurrencyConverter = (props) => {
   const [rate, setRate] = useState([]);
   const firstCurrency = useSelector(state => state.firstCurrency);
   const secondCurrency = useSelector(state => state.secondCurrency);
+  const amount = useSelector(state => state.amount);
   let rates = [];
   let dates = [];
   console.log(firstCurrency);
@@ -58,12 +59,13 @@ const CurrencyConverter = (props) => {
     console.log(props);
     const fr = document.getElementById("from");
     const to = document.getElementById("to");
-    console.log("Listened a change from first currency!");
+    console.log("Listened to a change from first currency!");
     fr.value = firstCurrency;
     to.value = secondCurrency;
+    console.log(amount);
 
     
-  }, [firstCurrency, secondCurrency]);
+  }, [firstCurrency, secondCurrency, amount]);
   const getRate = (first, second) => {
     axios({
       method: "GET",
@@ -114,7 +116,7 @@ const CurrencyConverter = (props) => {
         <Grid.Row columns = {3}>
           <Grid.Column>
           <Input id = "amount" label='Amount' placeholder='1' size = "huge" 
-              onChange = {(e) => dispatch(setFirstCurrency(e.target.value))} />
+              onChange = {(e) => dispatch(setAmount(e.target.value))} />
           </Grid.Column>
           <Grid.Column>
             <Input id = "from" label='From' placeholder='USD' size = "huge"

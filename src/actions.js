@@ -25,4 +25,8 @@ export const setDates = (arr) => ({
 });
 export const getRate = () => ({
     type: "GET_RATE"
-})
+});
+export const setAmount = (num) =>({
+    type: "SET_AMOUNT",
+    payload: num
+});
