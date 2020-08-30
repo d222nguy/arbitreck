@@ -127,6 +127,8 @@ const CurrencyConverter = (props) => {
                 onChange = {(e) => dispatch(setSecondCurrency(e.target.value))}/>
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row>YOU CAN ALSO SEARCH CURRENCY BY COUNTRY BELOW</Grid.Row>
+
               {/* <div style={{padding: "1rem", fontSize: "1.5rem"}}>Or search by country name</div> */}
         <CountrySearch></CountrySearch>
         <Grid.Row>

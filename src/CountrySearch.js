@@ -62,7 +62,6 @@ const CountrySearch = (props) => {
         </div>
         </Grid.Column>
         </Grid.Row>
-
         // <div className="flex"> 
         // <input type="text" value={firstCountryName} onChange = {(e) => setFirstCountryName(e.target.value)}/>
         // <button onClick = {() => {setCurrencyByCountryName(firstCountryName, true);}}>Search</button>
