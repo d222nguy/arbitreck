@@ -16,7 +16,7 @@ const RateDisplayer = () => {
     return (
         <div>
             <header className="tc pv4">
-            <img src={require("/Users/duynguyen/Downloads/currency/src/images/Arbitreck.png")} className="br3 ba b--black-10 h4 w4" alt="avatar"></img>
+            <img src={require("./images/Arbitreck.png")} className="br3 ba b--black-10 h4 w4" alt="avatar"></img>
             {/* <h1 className="f5 f4-ns fw6 black-70">Jasper Whitehouse</h1>
             <h2 className="f6 black-70 fw2 ttu tracked">Los Angeles</h2> */}
             </header>
